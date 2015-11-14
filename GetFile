@@ -1,0 +1,6 @@
+import csv                                                                #imports csv module, necessary for working with csv files
+>>> with open('C:\\Users\\Elroy\\Desktop\\DATA.csv', 'r') as my_file:     #open's file from directory and stores as my_file
+	reader = csv.DictReader(my_file, delimiter = ',')                       #sets reader as the DictReader of my_file, delimited by ',' 
+	                                                                        #which returns the data as rows with column headers as keys
+	for row in reader:                                                      #loops through cases which are stored as rows of data
+		print (row['age'], row['sex'], row['school'])                         #prints each case for the key(variable) identified in []
