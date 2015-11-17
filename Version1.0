@@ -1,0 +1,16 @@
+def main():
+	with open('C:\\Users\\Elroy\\Desktop\\DATA.csv', 'r') as my_file:         #change file name
+		data = csv.DictReader(my_file, delimiter=',')
+		variable = []
+		combo = []
+		for row in data:
+			variable.append(row['SCHOOL'])                                        #identify variable name here
+		for row in itertools.permutations(variable, 2):
+			combo.append(row)
+		c = Counter(combo)
+	with open('C:\\Users\\Elroy\\Desktop\\New Data.csv', 'w') as csv_file:    #change file name
+		fieldnames = ['node1','node2', 'count']
+		data = csv.DictWriter(csv_file, fieldnames = fieldnames)
+		data.writeheader()
+		for combination,count in c.most_common():
+			data.writerow({'node1':combination[0], 'node2':combination[1], 'count':count})
