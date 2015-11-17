@@ -13,8 +13,9 @@ def main():
 			combo.append(row)
 		c = Counter(combo)
 	with open('C:\\Users\\Elroy\\Desktop\\New Data.csv', 'w') as csv_file:    #change file name
-		fieldnames = ['node1','node2', 'count']
+		fieldnames = ['Source','Target', 'Type', 'ID', 'Label', 'Weight']
 		data = csv.DictWriter(csv_file, fieldnames = fieldnames)
 		data.writeheader()
+		types = 'Undirected'
 		for combination,count in c.most_common():
-			data.writerow({'node1':combination[0], 'node2':combination[1], 'count':count})
+			data.writerow({''Source':combination[0], 'Target':combination[1], 'Type': types , 'Lable':combination, 'Weight':count})
