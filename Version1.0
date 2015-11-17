@@ -1,3 +1,7 @@
+import csv
+from collections import Counter
+import itertools
+
 def main():
 	with open('C:\\Users\\Elroy\\Desktop\\DATA.csv', 'r') as my_file:         #change file name
 		data = csv.DictReader(my_file, delimiter=',')
