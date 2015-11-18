@@ -5,7 +5,7 @@ import re
 
 #User will identify the input file location, variable to be analyzed and output file location
 inputfile = raw_input("Please identify your file directory: ")
-fileVariable = raw_input("Please enter your variable of interest")
+fileVariable = raw_input("Please enter your variable of interest: ")
 outputfile = raw_input("Please identify where you want this file to be saved: ")
 
 def main():
