@@ -1,0 +1,59 @@
+import csv
+from collections import Counter
+import itertools
+import re
+
+#User will identify the input file location, variable to be analyzed and output file location
+inputfile = raw_input("Please identify your file directory: ")
+fileVariable = raw_input("Please enter your variable of interest")
+outputfile = raw_input("Please identify where you want this file to be saved: ")
+
+def main():
+	#identifies a list of articlesto be excluded from analysis
+	articles= ['a', 'an', 'is', 'was', 'were', 'the']
+	#opens file
+	with open(inputfile, 'r') as my_file:         
+		data = csv.DictReader(my_file, delimiter=',')
+		variables= []
+		word = ' '
+		combo = []
+		combi = []
+		
+		#appends each row as a list into variables and unordered series of words into word
+		for row in data:
+			variables.append(row[fileVariable])
+			word +='' + row[fileVariable] 
+		
+		#splits word into a bunch of words
+		words = word.split()
+		
+		#attempts to check words for every reference of an article as identified earlier and replaces them
+		for a in articles:
+			if a in words:
+				words= re.sub(a,'',words)
+		
+		#creates all possible 2-word combination of word in words and stores them as lists in combo
+		for w in itertools.permutations(words, 2):
+			combo.append(w)
+		
+		#creates a 2-word combo for every list in words, then appends a that combo into combin if it already exists in combo
+		for case in variables:
+			for combin in itertools.combinations(variables, 2):
+				if combin in combo:
+					combin.append(combi)
+		
+		#counts every combination in combin
+		nodes = Counter(combi)
+	
+	#creates output file
+	with open(outputfile, 'w') as csv_file:
+		fieldnames = ['Source','Target', 'Type', 'ID', 'Label', 'Weight']
+		data = csv.DictWriter(csv_file, fieldnames = fieldnames)
+		data.writeheader()
+		types = 'Undirected'
+		for combination,count in nodes.most_common():
+			for i in range(1, len(nodes)):
+				data.writerow({'Source':combination[0], \
+				'Target':combination[1], 'Type': 'Undirected' , \
+				'ID' :i,'Label':combination, 'Weight':count})
+main_py()
