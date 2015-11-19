@@ -1,7 +1,6 @@
 import csv
 from collections import Counter
-import itertools
-import re
+import itertool
 
 #User will identify the input file location, variable to be analyzed and output file location
 inputfile = raw_input("Please identify your file directory: ")
@@ -14,35 +13,12 @@ def main():
 	#opens file
 	with open(inputfile, 'r') as my_file:         
 		data = csv.DictReader(my_file, delimiter=',')
-		variables= []
-		word = ' '
-		combo = []
 		combi = []
 		
-		#appends each row as a list into variables and unordered series of words into word
+		#for each row, create a two word combination and append to combi
 		for row in data:
-			variables.append(row[fileVariable])
-			word +='' + row[fileVariable] 
-		
-		#splits word into a bunch of words
-		words = word.split()
-		
-		#attempts to check words for every reference of an article as identified earlier and replaces them
-		for a in articles:
-			if a in words:
-				words= re.sub(a,'',words)
-		
-		#creates all possible 2-word combination of word in words and stores them as lists in combo
-		for w in itertools.permutations(words, 2):
-			combo.append(w)
-		
-		#creates a 2-word combo for every list in words, then appends a that combo into combin if it already exists in combo
-		for case in variables:
-			for combin in itertools.combinations(variables, 2):
-				if combin in combo:
-					combin.append(combi)
-		
-		#counts every combination in combin
+			for w in itertools.permutations(row['Text'].split(), 2):
+				combi.append(w)
 		nodes = Counter(combi)
 	
 	#creates output file
