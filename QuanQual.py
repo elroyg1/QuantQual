@@ -8,8 +8,7 @@ fileVariable = raw_input("Please enter your variable of interest: ")
 outputfile = raw_input("Please identify where you want this file to be saved: ")
 
 def main():
-	#identifies a list of articlesto be excluded from analysis
-	articles= ['a', 'an', 'is', 'was', 'were', 'the']
+	
 	#opens file
 	with open(inputfile, 'r') as my_file:         
 		data = csv.DictReader(my_file, delimiter=',')
@@ -17,7 +16,7 @@ def main():
 		
 		#for each row, create a two word combination and append to combi
 		for row in data:
-			for w in itertools.permutations(row['Text'].split(), 2):
+			for w in itertools.permutations(row[fileVariable].split(), 2):
 				combi.append(w)
 		nodes = Counter(combi)
 	
