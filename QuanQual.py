@@ -6,7 +6,7 @@ import itertool
 inputfile = raw_input("Please identify your file directory: ")
 fileVariable = raw_input("Please enter your variable of interest: ")
 outputfile = raw_input("Please identify where you want this file to be saved: ")
-
+articles =['a', 'an', 'the', 'is', 'are', 'were', 'was']
 def main():
 	
 	#opens file
@@ -16,6 +16,8 @@ def main():
 		
 		#for each row, create a two word combination and append to combi
 		for row in data:
+			for i in row:
+				itertool.ifilter(lambda x:if i in articles, row[fileVariable])
 			for w in itertools.permutations(row[fileVariable].split(), 2):
 				combi.append(w)
 		nodes = Counter(combi)
