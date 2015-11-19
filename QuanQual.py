@@ -16,9 +16,7 @@ def main():
 		
 		#for each row, create a two word combination and append to combi
 		for row in data:
-			for i in row:
-				itertool.ifilter(lambda x:if i in articles, row[fileVariable])
-			for w in itertools.permutations(row[fileVariable].split(), 2):
+			for w in itertools.permutations((itertool.ifilter(lambda x:if i in articles, row[fileVariable].split()), 2):
 				combi.append(w)
 		nodes = Counter(combi)
 	
